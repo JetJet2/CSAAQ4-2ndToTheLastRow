@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Canteen Queue</title>
+  <style>
+    html {
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .des {
+      display: flex;
+      gap: 40px;
+      position: relative;
+      height: auto;
+      width: 500px;
+      margin: 25px;
+      box-shadow: 2px 4px 3px 5px rgba(0, 0, 0, 0.3);
+      border-top: 10px solid blue;
+      border-bottom: 10px solid black;
+      border-radius: 25px;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="des">
+    <fieldset>
+      <legend>Queue Registration</legend>
+      <label for="myName">Student Name:</label>
+      <input id="myName" />
+      <br><br>
+      <label for="mySID">Student ID:</label>
+      <input id="mySID" />
+      <br><br>
+      <button onclick="cQ()">Submit Info</button>
+	  <button onclick="popQ()">Remove last person from Queue</button>
+    </fieldset>
+  </div>
+
+  <div class="des">
+    <fieldset>
+      <legend>Queue</legend>
+      <ul id="output"></ul>
+    </fieldset>
+  </div>
+
+  <script>
+    let arr = JSON.parse(localStorage.getItem("queue")) || [];
+    disp();
+
+    function cQ() {
+      let susername = document.getElementById("myName").value.trim();
+      let sID = document.getElementById("mySID").value.trim();
+
+      if (susername === "" || sID === "") {
+        alert("Please enter both name and student ID.");
+        return;
+      }
+
+      arr.push(`${susername} (ID: ${sID})`);
+      localStorage.setItem("queue", JSON.stringify(arr));
+      disp();
+
+      document.getElementById("myName").value = "";
+      document.getElementById("mySID").value = "";
+    }
+
+    function disp() {
+      let display = "";
+      for (let i = 0; i < arr.length; i++) {
+        display += `<li>${arr[i]}</li>`;
+      }
+      document.getElementById("output").innerHTML = display;
+    }
+	
+	function popQ(){
+		arr.shift();
+		disp();
+	}
+  </script>
+</body>
+</html>
