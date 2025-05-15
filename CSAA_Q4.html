@@ -38,7 +38,7 @@
       <input id="mySID" />
       <br><br>
       <button onclick="cQ()">Submit Info</button>
-	  <button onclick="popQ()">Remove last person from Queue</button>
+	  <button onclick="mQ()">Move Queue </button>
     </fieldset>
   </div>
 
@@ -78,8 +78,9 @@
       document.getElementById("output").innerHTML = display;
     }
 	
-	function popQ(){
+	function mQ(){
 		arr.shift();
+		localStorage.setItem("queue", JSON.stringify(arr));
 		disp();
 	}
   </script>
